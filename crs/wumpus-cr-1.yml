@@ -1,0 +1,11 @@
+apiVersion: tests.redhat.com/v1beta1
+kind: Wumpus
+metadata:
+  name: wumpus1
+  purpose: test
+spec:
+  age: 1000
+  smell: Well
+  hair:
+    color: Black
+    type: Straight

@@ -1,0 +1,92 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    exclude.release.openshift.io/internal-openshift-hosted: "true"
+  name: wumpuses.tests.redhat.com
+ 
+spec:
+  conversion:
+    strategy: None
+  group: tests.redhat.com
+  names:
+    kind: Wumpus
+    listKind: WumpusList
+    plural: wumpuses
+    singular: wumpus
+  scope: Namespaced
+  versions:
+  - name: v1beta1
+    additionalPrinterColumns:
+    - description: Age
+      jsonPath: .spec.age
+      name: Age
+      type: integer
+    - description: Smell
+      jsonPath: .spec.smell
+      name: Smell
+      type: string
+    - description: Hair Color
+      jsonPath: .spec.hair.color
+      name: Color
+      type: string
+    schema:
+      openAPIV3Schema:
+        description: / [Wumpus] A wumpus
+        type: object
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: / [WumpusSpec] WumpusSpec defines how the wumpus is
+            type: object
+            properties:
+              age:
+                description: The Age of the Wumpus specifies how old the wumpus is
+                type: integer
+                format: int32
+              smell:
+                description: Smell defines how the wumpus smells
+                type: string
+                enum:
+                  - Well
+                  - Bad
+                  - Sweet
+                  - Sour
+                  - Tasty
+              hair:
+                description: The Hair of the wumpus.
+                type: object
+                properties:
+                  color:
+                    description: The color of the wumpus' hair
+                    type: string
+                    enum:
+                      - Black
+                      - Blue
+                      - Brown
+                      - Green
+                      - Magenta
+                      - Rainbow
+                      - Red
+                      - White
+                  type:
+                    description: The color of the wumpus' hair
+                    type: string
+                    enum:
+                      - Straight
+                      - Curly
+                      - Sheepy
+    served: true
+    storage: true
+
